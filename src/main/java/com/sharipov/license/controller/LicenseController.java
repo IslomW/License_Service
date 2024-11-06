@@ -18,8 +18,9 @@ public class LicenseController {
     @GetMapping("/{licenseId}")
     public ResponseEntity<License> getLicense(@PathVariable("organizationId") String organizationId,
                                               @PathVariable("licenseId") String licenseId) {
-        License license = licenseService
-                .getLicense(licenseId, organizationId);
+        License license = new License();
+//        License license = licenseService
+//                .getLicense(licenseId, organizationId);
         return ResponseEntity.ok(license);
     }
 
@@ -44,6 +45,13 @@ public class LicenseController {
                                                 @PathVariable("licenseId") String licenseId) {
         return ResponseEntity.ok(licenseService.deleteLicense(licenseId, organizationId));
 
+    }
+
+    @GetMapping("/{licenseId}/{clientType}")
+    public License getLicenseWithClient(@PathVariable("organizationId") String organizationId,
+                                        @PathVariable("licenseId") String licenseId,
+                                        @PathVariable("clientType") String clientType){
+        return licenseService.getLicense(organizationId, licenseId, clientType);
     }
 
 
